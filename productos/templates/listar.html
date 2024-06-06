@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %} Listar Productos {% endblock %}
+
+{% block content%}
+
+<ul class="nav nav-tabs justify-content-center">
+    <li class="nav-item">
+        <button type="button" class="nav-link active" data-bs-toggle="modal" data-bs-target="#importar_Csv">
+            Importar
+        </button>
+        {% include "importarCsv.html" %}
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-disabled="true" href="exportarCsv/">Exportar</a>
+    </li>
+</ul>
+{% include "agregarProducto.html" %}
+
+<hr>
+
+{% if errorEditar %}
+<div class="alert alert-danger">{{ errorEditar }}</div>
+<hr>
+{% endif %}
+<div class="row">
+    <table class="table table-striped table-responsive table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th colspan="">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{producto.id}}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }} $</td>
+                <td>{{ producto.cantidad }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#editarModal{{ producto.id }}">Editar</button>
+                    {% include "editarProducto.html" with producto=producto %}
+                    <button type="button" id="eliminar" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#eliminarProducto{{ producto.id }}">Eliminar</button>
+                    {% include "eliminarProducto.html"%}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock%}

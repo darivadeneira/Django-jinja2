@@ -1,0 +1,47 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarModal">
+    Agregar Producto
+</button>
+
+{% if error %}
+<hr>
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+<!-- Modal -->
+<div class="modal fade" id="agregarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir productos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h2>Detalles</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/agregar/" method="post">{% csrf_token %}
+                            <div class="form-group form-control-lg">
+                                <label for="textoProducto">Producto</label>
+                                <input type="text" id="textoProducto" name="textoProducto" class="form-control"
+                                    placeholder="Ingrese producto" method="post" required>
+                            </div>
+                            <div class="form-group form-control-lg">
+                                <label for="textoPrecio">Precio</label>
+                                <input type="text" id="textoPrecio" name="textoPrecio" class="form-control"
+                                    placeholder="Ingrese el precio" method="post" required>
+                            </div>
+                            <div class="form-group form-control-lg">
+                                <label for="textoUnidad">Unidades</label>
+                                <input type="number" id="textoUnidad" name="textoUnidad" class="form-control"
+                                    placeholder="Ingrese las unidades" method="post" required>
+                            </div>
+                            <hr>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button class="btn btn-success me-md-2 btn-block" type="submit">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
